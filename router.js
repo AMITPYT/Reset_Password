@@ -141,7 +141,7 @@ router.post('/emailSend', async (req, res) => {
         })
         let otpResponse = await otpData.save();
         resType.statusText = "Success"
-        // mailer("tejim47660@jernang.com", 5698)
+        mailer(data , otpcode )
         resType.message = "Please the check your email I'd"
     }
     else {
@@ -191,12 +191,13 @@ const mailer = (email, otp) => {
     var nodemailer = require("nodemailer");
 
     var transporter = nodemailer.createTransport({
-        service: "gmail",
-        port: 587,
-        secure: false,
+service: "smtp@gmail.com",
+port: 587,
+secure: false,
+requireTLS: true,
         auth: {
             user: 'amitkumar171117@gmail.com',
-            pass: 'Am!t261102'
+            pass: 'xbhmjnlohdyowjpp'
         }
     });
 
@@ -204,7 +205,7 @@ const mailer = (email, otp) => {
         form: 'amitkumar171117@gmail.com',
         to: 'tejim47660@jernang.com',
         subject: 'Sending Mail using Nodejs',
-        text: 'hahaha'
+        text: `Your OTP is ${otp} expired in 15 min `
     };
     transporter.sendMail(mailoption, function (error, Info) {
         if (error) {
